@@ -36,9 +36,17 @@ namespace tomogram_visualizer
         {
             int min = Form1.minBar;
             int max = Form1.widthBar;
-            int newVal = Clamp((value - min) * 255 / (max - min), 0, 255);
-            return Color.FromArgb(255, newVal, newVal, newVal);
+            int blue, yellow;
+            //int newVal = Clamp((value - min) * 255 / (max - min), 0, 255);
+            //return Color.FromArgb(255, newVal, newVal, newVal);
+            int newVal = Clamp((value - min) / (max - min), 0, 1);
+
+            blue = (1 - newVal) * 255;
+            yellow = newVal*255;
+            //Clamp(blue, 0, 255);
+            return Color.FromArgb(255, yellow, yellow, blue);
         }
+
         public void DrawQuads(int layerNumber)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
